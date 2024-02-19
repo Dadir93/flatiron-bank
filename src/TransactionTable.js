@@ -15,6 +15,12 @@ function TransactionTable({ transactions, searchTerm, sortBy, handleSortBy, setS
         transaction.description.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    const handleDeleteTransaction = (index) => {
+        const updatedTransactions = [...transactions];
+        updatedTransactions.splice(index, 1);
+        setTransactions(updatedTransactions);
+    };
+
     return (
         <div>
             <div>
@@ -50,7 +56,7 @@ function TransactionTable({ transactions, searchTerm, sortBy, handleSortBy, setS
                             key={index}
                             transaction={transaction}
                             index={index}
-                            setTransactions={setTransactions}
+                            handleDeleteTransaction={handleDeleteTransaction} // Pass handleDeleteTransaction here
                         />
                     ))}
                 </tbody>
