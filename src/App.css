@@ -1,3 +1,5 @@
+/* App.css */
+
 body {
   background-image: url(./bank.jpg);
   background-size: cover;
@@ -28,6 +30,16 @@ th, td {
 
 tbody tr:nth-child(even) {
   background-color: #f2f2f2;
+}
+
+tbody tr:nth-child(odd) td {
+  font-weight: bold;
+  color: white; /* Bold white */
+}
+
+tbody tr:nth-child(even) td {
+  font-weight: bold;
+  color: royalblue; /* Bold blue */
 }
 
 input[type="text"],
@@ -75,7 +87,7 @@ label {
 
 .TransForm {
   background-color: #e6f2ff; 
-  width: 30%; 
+  width: 70%; 
   padding: 10px; 
   border-radius: 10px; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
@@ -87,5 +99,5 @@ label {
 }
 
 .TransForm h3 {
-text-align: center;
+  text-align: center;
 }

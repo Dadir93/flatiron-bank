@@ -1,3 +1,4 @@
+// App.js
 import React, { useState } from 'react';
 import TransactionTable from './TransactionTable';
 import TransForm from './TransForm';
@@ -36,7 +37,7 @@ function App() {
                     placeholder="Search..."
                     value={searchTerm}
                     onChange={(e) => handleSearchTermChange(e.target.value)}
-                    style={{ width: '350px' }}
+                    style={{ width: '250px' }}
                 />
             </div>
             <TransactionTable
@@ -45,7 +46,11 @@ function App() {
                 filterBy={filterBy}
                 handleFilterBy={handleFilterBy}
                 handleDeleteTransaction={handleDeleteTransaction}
+                className="transaction-table"
             />
+            <div className="next-box">
+                {/* Next box content */}
+            </div>
             <TransForm handleAddTransaction={handleAddTransaction} />
         </div>
     );
