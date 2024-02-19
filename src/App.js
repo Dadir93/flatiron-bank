@@ -1,14 +1,11 @@
-import TransForm from './Transactions';
-import jsonData from './Data';
+import React from 'react';
 import './App.css';
+import TransForm from './TransForm';
 
 function App() {
-  const transactionsData = jsonData.transactions;
   return (
     <div className="App">
-      <h1>Bank of Flatiron</h1>
-      <TransForm transactions={transactionsData}/>
-      
+      <TransForm />
     </div>
   );
 }
