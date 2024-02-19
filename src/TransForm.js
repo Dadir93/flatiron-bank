@@ -1,37 +1,72 @@
-import React, { useState, useEffect } from 'react';
-import TransactionTable from './TransactionTable';
-import TransactionForm from './TransactionForm';
-import jsonData from './Data';
+import React, { useState } from 'react';
 
-function TransForm() {
-    const [transactions, setTransactions] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [sortBy, setSortBy] = useState(null); 
+function TransForm({ handleAddTransaction }) {
+    const [formData, setFormData] = useState({
+        id: '',
+        date: '',
+        description: '',
+        category: '',
+        amount: '',
+    });
 
-    useEffect(() => {
-        setTransactions(jsonData.transactions);
-        console.log('Fetched data:', jsonData);
-    }, []);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
 
-    const handleSortBy = (sortBy) => {
-        setSortBy(sortBy);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        handleAddTransaction(formData);
+        setFormData({
+            id: '',
+            date: '',
+            description: '',
+            category: '',
+            amount: '',
+        });
     };
 
     return (
-        <>
-            <h2>Transaction Table</h2>
-            <TransactionTable
-                transactions={transactions}
-                searchTerm={searchTerm}
-                sortBy={sortBy}
-                handleSortBy={handleSortBy}
-                setSearchTerm={setSearchTerm}
-                setTransactions={setTransactions}
-            />
-            <TransactionForm
-                setTransactions={setTransactions}
-            />
-        </>
+        <form className="TransForm" onSubmit={handleSubmit}>
+            <h3 style={{ marginLeft: '10%' }}>Add New Transaction</h3>
+    <label>
+        Description:
+        <input
+            type="text"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            required
+        />
+    </label>
+            <br />
+            <label>
+                Category:
+                <input
+                    type="text"
+                    name="category"
+                    value={formData.category}
+                    onChange={handleChange}
+                    required
+                />
+            </label>
+            <br />
+            <label>
+                Amount:
+                <input
+                    type="number"
+                    name="amount"
+                    value={formData.amount}
+                    onChange={handleChange}
+                    required
+                />
+            </label>
+            <br />
+            <button type="submit">Add Transaction</button>
+        </form>
     );
 }
 

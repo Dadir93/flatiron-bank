@@ -1,43 +1,32 @@
 import React from 'react';
 import TransactionRow from './TransactionRow';
 
-function TransactionTable({ transactions, searchTerm, sortBy, handleSortBy, setSearchTerm, setTransactions }) {
-    const sortedTransactions = [...transactions].sort((a, b) => {
-        if (sortBy === 'category') {
+function TransactionTable({ transactions, searchTerm, filterBy, handleFilterBy, handleDeleteTransaction }) {
+
+    const filteredTransactions = transactions.filter(transaction =>
+        transaction.description.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    const sortedTransactions = [...filteredTransactions].sort((a, b) => {
+        if (filterBy === 'category') {
             return a.category.localeCompare(b.category);
-        } else if (sortBy === 'description') {
+        } else if (filterBy === 'description') {
             return a.description.localeCompare(b.description);
         }
         return 0;
     });
 
-    const filteredTransactions = sortedTransactions.filter(transaction =>
-        transaction.description.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    const handleDeleteTransaction = (index) => {
-        const updatedTransactions = [...transactions];
-        updatedTransactions.splice(index, 1);
-        setTransactions(updatedTransactions);
-    };
-
     return (
         <div>
             <div>
                 <label>
-                    Sort by:
-                    <select value={sortBy} onChange={(e) => handleSortBy(e.target.value)}>
-                        <option value="">None</option>
+                    Filter by:
+                    <select value={filterBy} onChange={(e) => handleFilterBy(e.target.value)}>
+                        <option value="">All</option>
                         <option value="category">Category</option>
                         <option value="description">Description</option>
                     </select>
                 </label>
-                <input
-                    type="text"
-                    placeholder="Search transactions..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
             </div>
             <table>
                 <thead>
@@ -51,12 +40,12 @@ function TransactionTable({ transactions, searchTerm, sortBy, handleSortBy, setS
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredTransactions.map((transaction, index) => (
+                    {sortedTransactions.map((transaction, index) => (
                         <TransactionRow
                             key={index}
                             transaction={transaction}
                             index={index}
-                            handleDeleteTransaction={handleDeleteTransaction} // Pass handleDeleteTransaction here
+                            handleDeleteTransaction={handleDeleteTransaction}
                         />
                     ))}
                 </tbody>

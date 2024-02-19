@@ -1,10 +1,6 @@
 import React from 'react';
 
 function TransactionRow({ transaction, index, handleDeleteTransaction }) {
-    const handleDelete = () => {
-        handleDeleteTransaction(index);
-    };
-
     return (
         <tr>
             <td>{transaction.id}</td>
@@ -13,7 +9,7 @@ function TransactionRow({ transaction, index, handleDeleteTransaction }) {
             <td>{transaction.category}</td>
             <td>{transaction.amount}</td>
             <td>
-                <button onClick={handleDelete}>Delete</button>
+                <button onClick={() => handleDeleteTransaction(index)}>Delete</button>
             </td>
         </tr>
     );
